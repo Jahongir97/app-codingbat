@@ -59,8 +59,6 @@ public class ExampleService {
         Example example = new Example();
         example.setText(exampleDto.getText());
         optionalTask.ifPresent(example::setTask);
-        Task task = example.getTask();
-        taskRepository.save(task);
         exampleRepository.save(example);
         return new ApiResponse("Example successfully added", true);
     }
@@ -81,8 +79,6 @@ public class ExampleService {
             Example editingExample = optionalExample.get();
             editingExample.setText(exampleDto.getText());
             optionalTask.ifPresent(editingExample::setTask);
-            Task task = editingExample.getTask();
-            taskRepository.save(task);
             exampleRepository.save(editingExample);
             return new ApiResponse("Successfully edited", true);
         }

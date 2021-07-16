@@ -56,7 +56,7 @@ public class TaskService {
         if (exists) {
             return new ApiResponse("This Task already exist", false);
         }
-        Optional<Category> ooptionalCategory = categoryRepository.findById(taskDto.getCategoryId());
+        Optional<Category> optionalCategory = categoryRepository.findById(taskDto.getCategoryId());
         Task task = new Task();
         task.setText(taskDto.getText());
         task.setHasStar(taskDto.isHasStar());
@@ -64,9 +64,7 @@ public class TaskService {
         task.setMethod(taskDto.getMethod());
         task.setName(taskDto.getName());
         task.setSolution(taskDto.getSolution());
-        ooptionalCategory.ifPresent(task::setCategory);
-        Category category = task.getCategory();
-        categoryRepository.save(category);
+        optionalCategory.ifPresent(task::setCategory);
         taskRepository.save(task);
         return new ApiResponse("Task successfully added", true);
     }
@@ -92,8 +90,6 @@ public class TaskService {
             editingTask.setHint(taskDto.getHint());
             editingTask.setHasStar(taskDto.isHasStar());
             optionalCategory.ifPresent(editingTask::setCategory);
-            Category category = editingTask.getCategory();
-            categoryRepository.save(category);
             taskRepository.save(editingTask);
             return new ApiResponse("Successfully edited", true);
         }

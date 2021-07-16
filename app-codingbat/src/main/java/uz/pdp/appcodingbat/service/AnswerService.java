@@ -61,11 +61,7 @@ public class AnswerService {
         answer.setText(answerDto.getText());
         answer.setCorrect(answerDto.isCorrect());
         optionalUser.ifPresent(answer::setUser);
-        User user = answer.getUser();
-        userRepository.save(user);
         optionalTask.ifPresent(answer::setTask);
-        Task task = answer.getTask();
-        taskRepository.save(task);
         answerRepository.save(answer);
         return new ApiResponse("Answer successfully added", true);
     }
@@ -88,11 +84,7 @@ public class AnswerService {
             editingAnswer.setCorrect(answerDto.isCorrect());
             editingAnswer.setText(answerDto.getText());
             optionalUser.ifPresent(editingAnswer::setUser);
-            User user = editingAnswer.getUser();
-            userRepository.save(user);
             optionalTask.ifPresent(editingAnswer::setTask);
-            Task task = editingAnswer.getTask();
-            taskRepository.save(task);
             answerRepository.save(editingAnswer);
             return new ApiResponse("Successfully edited", true);
         }
